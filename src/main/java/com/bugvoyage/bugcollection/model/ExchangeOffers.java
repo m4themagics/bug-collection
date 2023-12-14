@@ -2,6 +2,7 @@ package com.bugvoyage.bugcollection.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -9,23 +10,25 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "exchange_offers", schema = "public", catalog = "BugCollection")
 public class ExchangeOffers {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Basic
-    @Column(name = "offer_id", nullable = false)
-    private int offerId;
-    @Basic
-    @Column(name = "beetle_id", nullable = false)
-    private int beetleId;
-    @Basic
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "offer_id", nullable = false)
+    private User offer;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "beetle_id", nullable = false)
+    private Beetle beetle;
+
     @Column(name = "requested_species", nullable = false)
     private String requestedSpecies;
-    @Basic
-    @Column(name = "status", length = 50)
+
+    @Column(nullable = false)
     private String status;
-    @Basic
-    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 }

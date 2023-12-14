@@ -27,11 +27,11 @@ CREATE TABLE beetles
 CREATE TABLE exchange_offers
 (
     id                SERIAL PRIMARY KEY,
-    offeror_id        INT          NOT NULL,                   -- ID пользователя, который делает предложение
+    offer_id        INT          NOT NULL,                   -- ID пользователя, который делает предложение
     beetle_id         INT          NOT NULL,                   -- ID жука, который предлагается для обмена
     requested_species VARCHAR(255) NOT NULL,                   -- Вид жука, который хотят получить взамен
     status            VARCHAR(50)              DEFAULT 'open', -- Статус предложения (открыто, закрыто, и т.д.)
     created_at        TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (offeror_id) REFERENCES users (id),
+    FOREIGN KEY (offer_id) REFERENCES users (id),
     FOREIGN KEY (beetle_id) REFERENCES beetles (id)
 );

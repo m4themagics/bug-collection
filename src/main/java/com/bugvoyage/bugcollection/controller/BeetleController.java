@@ -1,21 +1,23 @@
 package com.bugvoyage.bugcollection.controller;
 
+import com.bugvoyage.bugcollection.ResourceNotFoundException;
 import com.bugvoyage.bugcollection.model.Beetle;
+import com.bugvoyage.bugcollection.model.User;
 import com.bugvoyage.bugcollection.service.BeetleService;
-import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
+import com.bugvoyage.bugcollection.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/api/beetles")
 public class BeetleController {
 
-    @NotNull
     private final BeetleService beetleService;
+    private final UserService userService; // Добавлен сервис для работы с пользователями
 
     // Получение списка всех жуков
     @GetMapping
@@ -32,25 +34,33 @@ public class BeetleController {
     }
 
     // Создание нового жука
-    @PostMapping
-    public Beetle createBeetle(@RequestBody Beetle beetle) {
-        return beetleService.saveBeetle(beetle);
+    @PostMapping("/{userId}") // Добавлен путь для получения ID пользователя
+    public ResponseEntity<Beetle> createBeetle(@PathVariable(value = "userId") Integer userId, // Получение ID пользователя из пути
+                                               @RequestBody Beetle beetle) {
+        User user = userService.findUserById(userId) // Получение пользователя по ID
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
+        beetle.setUser(user); // Установка пользователя для жука
+        Beetle savedBeetle = beetleService.saveBeetle(beetle);
+        return ResponseEntity.ok(savedBeetle); // Возвращаем сохраненного жука
     }
 
     // Обновление информации о жуке
     @PutMapping("/{id}")
     public ResponseEntity<Beetle> updateBeetle(@PathVariable(value = "id") Integer beetleId,
                                                @RequestBody Beetle beetleDetails) {
-        return beetleService.updateBeetle(beetleId, beetleDetails)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Beetle updatedBeetle = beetleService.updateBeetle(beetleId, beetleDetails)
+                .orElseThrow(() -> new ResourceNotFoundException("Beetle not found with id " + beetleId));
+        return ResponseEntity.ok(updatedBeetle);
     }
 
     // Удаление жука
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBeetle(@PathVariable(value = "id") Integer beetleId) {
-        return beetleService.deleteBeetle(beetleId)
-                ? ResponseEntity.ok().build()
-                : ResponseEntity.notFound().build();
+        boolean deleted = beetleService.deleteBeetle(beetleId);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
