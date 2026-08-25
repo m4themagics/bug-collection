@@ -1,8 +1,8 @@
 # Bug Collection
 
-> **Maintenance status · 2026-08-25: hobby revival candidate, 0 committed portfolio
-> hours.** Текущий код остаётся архивным coursework baseline; работа начинается только
-> отдельным свободным таймбоксом и не конкурирует с активными P1/P2.
+> **Maintenance status · 2026-08-25: PAUSED hobby revival candidate, 0 committed portfolio
+> hours.** Текущий код остаётся coursework baseline; работа возобновляется только отдельным
+> свободным таймбоксом и не конкурирует с активными P1/P2.
 
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-6DB33F?logo=springboot&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-JPA-4169E1?logo=postgresql&logoColor=white) ![Maven](https://img.shields.io/badge/Maven-build-C71A36?logo=apachemaven&logoColor=white)
 
