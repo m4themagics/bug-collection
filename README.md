@@ -1,8 +1,5 @@
 # Bug Collection
 
-> **Maintenance status · 2026-08-25: HOBBY.** Текущий код —
-> coursework baseline для спокойного Java revival.
-
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-6DB33F?logo=springboot&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-JPA-4169E1?logo=postgresql&logoColor=white) ![Maven](https://img.shields.io/badge/Maven-build-C71A36?logo=apachemaven&logoColor=white)
 
 REST-сервис каталога коллекций жуков на Java и Spring Boot: пользователи, экземпляры,
@@ -64,18 +61,3 @@ flowchart LR
 [beetle-management-service](https://github.com/m4themagics/beetle-management-service).
 Репозитории удобно смотреть рядом — видно, что именно меняется при переносе
 Spring-приложения с Java/Maven на Kotlin/Gradle.
-
-## Возможное hobby-продолжение
-
-Желаемая идея — сохранить Java-репозиторий основным и постепенно превратить каталог в
-сервис рекомендаций для обмена коллекционными объектами. Это не текущий roadmap. Порядок допуска к работе:
-
-1. **Foundation:** Java 21, DTO вместо выдачи JPA entities, Bean Validation,
-   `@RestControllerAdvice`, Flyway, BCrypt или удаление фиктивного пароля, PostgreSQL через
-   Testcontainers, интеграционные тесты, Docker Compose и CI.
-2. **Завершённый продуктовый срез:** wishlist, создание/просмотр/принятие/отклонение
-   exchange offers, история взаимодействий и rule-based top-K по взаимной совместимости.
-3. **Только после рабочего API:** события Kafka и Java/Flink-признаки; Redis, ML ranking и
-   Python/ONNX serving — отдельные необязательные эксперименты с собственным stop/go.
-
-Kotlin-версия при этом остаётся историческим экспериментом и не развивается параллельно.
